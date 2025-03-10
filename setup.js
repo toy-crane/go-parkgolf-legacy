@@ -60,40 +60,6 @@ async function updatePackageJson(projectName) {
   }
 }
 
-// Function to squash all commits into a single initial commit
-function squashCommitsToInitial(projectName) {
-  try {
-    console.log("Creating a clean git history with a single initial commit...");
-
-    // Create a temporary branch to store the current state
-    execSync("git checkout -b temp-branch", { stdio: "inherit" });
-
-    // Create an orphan branch (no history)
-    execSync("git checkout --orphan new-main", { stdio: "inherit" });
-
-    // Add all files
-    execSync("git add .", { stdio: "inherit" });
-
-    // Create a single initial commit
-    execSync(`git commit -m "Initial commit for ${projectName}"`, {
-      stdio: "inherit",
-    });
-
-    // Get the name of the default branch
-    const defaultBranch = execSync("git symbolic-ref --short HEAD", {
-      encoding: "utf8",
-    }).trim();
-
-    // Force update the default branch to point to our new history
-    execSync(`git branch -D ${defaultBranch}`, { stdio: "inherit" });
-    execSync(`git branch -m ${defaultBranch}`, { stdio: "inherit" });
-
-    console.log("✅ Created a clean git history with a single initial commit");
-  } catch (error) {
-    console.error("❌ Error creating clean git history:", error.message);
-  }
-}
-
 // Main function
 async function main() {
   console.log("🚀 Welcome to the Universal Turborepo Template setup!");
@@ -115,9 +81,6 @@ async function main() {
 
   // Update package.json files
   await updatePackageJson(projectName);
-
-  // Squash all commits into a single initial commit
-  squashCommitsToInitial(projectName);
 
   console.log(`
 🎉 Setup complete! Your project "${projectName}" is ready to go.
