@@ -1,5 +1,5 @@
 {
-  "name": "hello",
+  "name": "universal-turbo-template",
   "private": true,
   "scripts": {
     "build": "turbo run build",
