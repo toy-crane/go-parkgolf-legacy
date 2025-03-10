@@ -1,6 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 import { Database } from "database";
-import { cookies } from "next/headers";
 
 // These environment variables are required for the Supabase client to work
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -17,19 +16,3 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
     autoRefreshToken: true,
   },
 });
-
-// For server components
-export const createServerClient = () => {
-  "use server";
-
-  return createClient<Database>(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      persistSession: false,
-    },
-    global: {
-      headers: {
-        cookie: cookies().toString(),
-      },
-    },
-  });
-};
