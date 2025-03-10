@@ -11,7 +11,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useAmplitude } from "@/libs/amplitude";
 import { cn } from "@/libs/tailwind";
 
 interface Props {
@@ -20,7 +19,6 @@ interface Props {
 
 export function CommandMenu({ options }: Props) {
   const router = useRouter();
-  const { track } = useAmplitude();
   const [open, setOpen] = React.useState(false);
 
   const runCommand = React.useCallback((command: () => unknown) => {
@@ -36,7 +34,6 @@ export function CommandMenu({ options }: Props) {
           "text-muted-foreground relative h-6 w-full justify-start rounded-3xl bg-neutral-50 text-xs font-normal shadow-sm sm:pr-12",
         )}
         onClick={() => {
-          track("search button clicked");
           setOpen(true);
         }}
       >
@@ -55,7 +52,6 @@ export function CommandMenu({ options }: Props) {
                 key={href}
                 value={title}
                 onSelect={() => {
-                  track("search result clicked");
                   runCommand(() => router.push(href));
                 }}
               >

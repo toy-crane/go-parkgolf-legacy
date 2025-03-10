@@ -7,17 +7,13 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { siteConfig } from "@/config/site";
 import { env } from "@/env.mjs";
-import { AmplitudeProvider } from "@/libs/amplitude";
 import { readUserSession } from "@/libs/auth";
 import { cn } from "@/libs/tailwind";
 import { isApp } from "@/libs/user-agent";
-import { Identify, identify, init } from "@amplitude/analytics-node";
 import { Analytics } from "@vercel/analytics/react";
 
 import UserAgentStoreInitializer from "./user-agent-store-initializer";
 import UserStoreInitializer from "./user-store-initializer";
-
-init(env.NEXT_PUBLIC_AMPLITUDE_API_KEY);
 
 export const viewport = {
   width: "device-width",
@@ -97,13 +93,6 @@ export const metadata: Metadata = {
 export default async function Layout(props: { children: React.ReactNode }) {
   const session = await readUserSession();
 
-  // 로그인 시에 amplitude에 user_id를 전송
-  if (session?.user) {
-    identify(new Identify(), {
-      user_id: session?.user?.id,
-    });
-  }
-
   // TODO: isWebview와 isMobileApp 통합이 필요함
   const headersList = headers();
   const userAgent = headersList.get("user-agent")!;
@@ -114,27 +103,22 @@ export default async function Layout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="ko">
-      <AmplitudeProvider
-        apiKey={env.NEXT_PUBLIC_AMPLITUDE_API_KEY}
-        user={session?.user}
-      >
-        <UserAgentStoreInitializer
-          isMobileApp={isMobileApp}
-          isWebview={isWebView}
+      <UserAgentStoreInitializer
+        isMobileApp={isMobileApp}
+        isWebview={isWebView}
+      />
+      <UserStoreInitializer user={session?.user} />
+      <body className={cn("bg-backgroundfont-sans antialiased")}>
+        {props.children}
+        <Toaster />
+        <Sonner />
+        <Script
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&libraries=services,clusterer&autoload=false`}
+          strategy="beforeInteractive"
         />
-        <UserStoreInitializer user={session?.user} />
-        <body className={cn("bg-backgroundfont-sans antialiased")}>
-          {props.children}
-          <Toaster />
-          <Sonner />
-          <Script
-            src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&libraries=services,clusterer&autoload=false`}
-            strategy="beforeInteractive"
-          />
 
-          <Analytics />
-        </body>
-      </AmplitudeProvider>
+        <Analytics />
+      </body>
     </html>
   );
 }

@@ -3,17 +3,14 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useAmplitude } from "@/libs/amplitude";
 
 const AppCTA = () => {
-  const { track } = useAmplitude();
   return (
     <Button className="font-bold" asChild size="sm" variant="secondary">
       <a
         href="https://play.google.com/store/apps/details?id=app.goparkgolf.www"
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => track("android app install button clicked")}
       >
         <Image
           width={16}

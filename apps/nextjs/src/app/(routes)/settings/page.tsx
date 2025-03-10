@@ -11,8 +11,6 @@ import {
   createSupabaseServerClientReadOnly,
 } from "@/libs/supabase/server";
 import { cn } from "@/libs/tailwind";
-import { Identify, identify } from "@amplitude/analytics-node";
-import { User } from "lucide-react";
 
 import DeleteAlert from "./delete-alert";
 
@@ -50,9 +48,6 @@ const Page = async () => {
     const supabase = await createSupabaseServerClient();
     // 현재 기기에서만 로그아웃되도록 scope를 local로 설정
     await supabase.auth.signOut({ scope: "local" });
-    identify(new Identify(), {
-      user_id: undefined,
-    });
     // client user 동기화를 위해서 validate를 다시 해준다.
     revalidatePath("/");
     redirect("/");

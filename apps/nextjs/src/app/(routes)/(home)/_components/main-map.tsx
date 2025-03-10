@@ -3,7 +3,6 @@
 import React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Marker from "@/app/(routes)/(home)/_components/marker";
-import { useAmplitude } from "@/libs/amplitude";
 import type { GolfCourse, Position } from "@/types";
 import { Map } from "react-kakao-maps-sdk";
 
@@ -14,7 +13,6 @@ interface Props {
 }
 
 const MainMap = ({ courses, selectedCourse, position }: Props) => {
-  const { track } = useAmplitude();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -22,7 +20,7 @@ const MainMap = ({ courses, selectedCourse, position }: Props) => {
   const handlePosition = (map: kakao.maps.Map) => {
     const lng = map.getCenter().getLng();
     const lat = map.getCenter().getLat();
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     params.set("lng", String(lng));
     params.set("lat", String(lat));
     router.replace(`${pathname}?${params.toString()}`);
@@ -30,7 +28,7 @@ const MainMap = ({ courses, selectedCourse, position }: Props) => {
 
   const handleZoom = (map: kakao.maps.Map) => {
     const level = map.getLevel();
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     params.set("level", String(level));
     router.replace(`${pathname}?${params.toString()}`);
   };
@@ -50,13 +48,12 @@ const MainMap = ({ courses, selectedCourse, position }: Props) => {
           key={course.name}
           isMarked={selectedCourse?.name === course.name}
           onClick={() => {
-            const params = new URLSearchParams(searchParams);
+            const params = new URLSearchParams(searchParams.toString());
             const selectedCourseLat = course.lat;
             const selectedCourseLng = course.lng;
             params.set("lng", String(selectedCourseLng));
             params.set("lat", String(selectedCourseLat));
             router.push(`/golf-courses/${course.slug}`);
-            track("course clicked", { ...course });
           }}
         />
       ))}

@@ -3,12 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { useAmplitude } from "@/libs/amplitude";
 import { Loader2, LocateFixed } from "lucide-react";
 
 const CurrentPositionButton = () => {
   const [loading, setLoading] = useState(false);
-  const { track } = useAmplitude();
   const router = useRouter();
   return (
     <Button
@@ -34,7 +32,6 @@ const CurrentPositionButton = () => {
             timeout: 27000,
           },
         );
-        track("current position clicked");
       }}
     >
       {loading ? (
