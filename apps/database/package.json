@@ -3,9 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "echo 'Add dev script here'",
-    "build": "echo 'Add build script here'",
-    "test": "echo 'Add test script here'",
+    "dev": "supabase start",
+    "start": "supabase start",
+    "stop": "supabase stop",
+    "status": "supabase status",
+    "reset": "supabase db reset",
+    "migration:new": "supabase migration new",
+    "migration:list": "supabase migration list",
+    "functions:serve": "supabase functions serve",
+    "functions:new": "supabase functions new",
+    "studio": "supabase studio",
     "lint": "echo 'Add lint script here'"
   }
 }

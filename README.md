@@ -44,6 +44,26 @@ This Turborepo template provides an empty structure for your monorepo:
 - `apps/`: Directory for your applications
 - `packages/`: Directory for your shared packages
 
+### Database Setup
+
+This project uses Supabase for database management, authentication, and
+serverless functions:
+
+- **Project Name**: When you initialize Supabase, the default project name is
+  "database". You should update it to your own project name.
+- **Local Development**: Run `cd apps/database && yarn dev` to start the local
+  Supabase instance
+- **Studio UI**: Access the local Supabase Studio at http://localhost:54323
+- **Database Workspace**: Located at `apps/database` with its own README for
+  detailed instructions
+
+To modify the database name:
+
+1. Edit `apps/database/supabase/config.toml`
+2. Change the `project_id` value from the default "database" to your preferred
+   name
+3. Restart the Supabase instance if it's running
+
 ### Utilities
 
 This Turborepo has some additional tools already setup for you:
@@ -64,6 +84,36 @@ cd apps
 # For example, with Next.js:
 npx create-next-app my-app
 ```
+
+### Using the Database Workspace
+
+The project includes a Supabase database workspace at `apps/database`. When
+initializing Supabase, the default project name is "database" - you should
+change this to your own project name (we used "dearly" in this example). To use
+Supabase in your applications:
+
+```sh
+# Start the local Supabase instance
+cd apps/database
+yarn dev
+
+# In your application, install the Supabase client
+cd apps/your-app
+yarn add @supabase/supabase-js
+```
+
+Then in your application code:
+
+```typescript
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  "http://localhost:54321",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
+);
+```
+
+For more details, refer to the README in the `apps/database` directory.
 
 ### Adding a New Package
 
@@ -94,6 +144,31 @@ To develop all apps and packages:
 ```sh
 yarn dev
 ```
+
+### Database
+
+To work with the Supabase database:
+
+```sh
+# Start the local Supabase instance
+cd apps/database
+yarn dev
+
+# Stop the local Supabase instance
+cd apps/database
+yarn stop
+
+# Check the status of Supabase services
+cd apps/database
+yarn status
+
+# Open the Supabase Studio UI
+cd apps/database
+yarn studio
+```
+
+Note: When initializing Supabase, remember to change the default project name
+"database" in `apps/database/supabase/config.toml` to your own project name.
 
 ### Lint
 
