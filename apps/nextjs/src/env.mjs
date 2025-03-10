@@ -19,7 +19,6 @@ export const env = createEnv({
    * built with invalid env vars.
    */
   server: {
-    DISCORD_ALERT_WEBHOOK_URL: z.string(),
     INDEX_NOW_KEY: z.string(),
     ZIGSAW_API_KEY: z.string(),
   },
@@ -36,7 +35,6 @@ export const env = createEnv({
    * Destructure all variables from `process.env` to make sure they aren't tree-shaken away.
    */
   runtimeEnv: {
-    DISCORD_ALERT_WEBHOOK_URL: process.env.DISCORD_ALERT_WEBHOOK_URL,
     VERCEL_URL: process.env.VERCEL_URL,
     PORT: process.env.PORT,
     NEXT_PUBLIC_KAKAO_CLIENT_ID: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID,
