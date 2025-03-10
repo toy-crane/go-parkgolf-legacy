@@ -1,6 +1,6 @@
 ---
-description: 
-globs: 
+description: Guideline for agent
+globs: **
 alwaysApply: false
 ---
 
