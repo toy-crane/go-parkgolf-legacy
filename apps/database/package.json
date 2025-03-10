@@ -2,6 +2,11 @@
   "name": "database",
   "version": "0.0.0",
   "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
   "scripts": {
     "dev": "supabase start",
     "start": "supabase start",
@@ -12,7 +17,7 @@
     "migration:list": "supabase migration list",
     "functions:serve": "supabase functions serve",
     "functions:new": "supabase functions new",
-    "studio": "supabase studio",
-    "lint": "echo 'Add lint script here'"
+    "gen:types": "supabase gen types typescript --local > ./supabase/functions/_shared/database.ts",
+    "studio": "supabase studio"
   }
 }
