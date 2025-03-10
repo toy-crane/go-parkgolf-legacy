@@ -1,28 +1,29 @@
-# Turborepo starter
+# Universal Turborepo Template
 
-This Turborepo starter is maintained by the Turborepo core team.
+This is a clean Turborepo template with empty apps and packages directories,
+ready for you to add your own applications and packages.
 
-## Using this example
+## Getting Started
 
-Run the following command:
+Run the following command to use this template:
 
 ```sh
-npx create-turbo@latest
+# Clone the repository
+git clone https://github.com/yourusername/universal-turbo-template.git my-project
+cd my-project
+
+# Install dependencies
+yarn install
 ```
 
-## What's inside?
+## Project Structure
 
-This Turborepo includes the following packages/apps:
+This Turborepo template provides an empty structure for your monorepo:
 
-### Apps and Packages
+### Directory Structure
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- `apps/`: Directory for your applications
+- `packages/`: Directory for your shared packages
 
 ### Utilities
 
@@ -32,43 +33,79 @@ This Turborepo has some additional tools already setup for you:
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 
+## Adding Your Own Apps and Packages
+
+### Adding a New App
+
+To add a new application to the `apps` directory:
+
+```sh
+cd apps
+# Create your application using your preferred framework
+# For example, with Next.js:
+npx create-next-app my-app
+```
+
+### Adding a New Package
+
+To add a new shared package to the `packages` directory:
+
+```sh
+cd packages
+mkdir my-package
+cd my-package
+# Initialize your package
+yarn init -y
+```
+
+## Commands
+
 ### Build
 
-To build all apps and packages, run the following command:
+To build all apps and packages:
 
-```
-cd my-turborepo
-pnpm build
+```sh
+yarn build
 ```
 
 ### Develop
 
-To develop all apps and packages, run the following command:
+To develop all apps and packages:
 
+```sh
+yarn dev
 ```
-cd my-turborepo
-pnpm dev
+
+### Lint
+
+To lint all apps and packages:
+
+```sh
+yarn lint
 ```
 
-### Remote Caching
+### Format
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+To format all files:
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
+```sh
+yarn format
 ```
-cd my-turborepo
+
+## Remote Caching
+
+Turborepo can use a technique known as
+[Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to
+share cache artifacts across machines, enabling you to share build caches with
+your team and CI/CD pipelines.
+
+By default, Turborepo will cache locally. To enable Remote Caching you will need
+an account with Vercel. If you don't have an account you can
+[create one](https://vercel.com/signup?utm_source=turborepo-examples), then
+enter the following commands:
+
+```sh
 npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
 npx turbo link
 ```
 
