@@ -60,28 +60,37 @@ async function updatePackageJson(projectName) {
   }
 }
 
-// Function to reinitialize git repository
-function reinitializeGit() {
+// Function to squash all commits into a single initial commit
+function squashCommitsToInitial(projectName) {
   try {
-    // Remove existing git directory
-    if (fs.existsSync(path.join(process.cwd(), ".git"))) {
-      fs.rmSync(path.join(process.cwd(), ".git"), {
-        recursive: true,
-        force: true,
-      });
-      console.log("✅ Removed existing .git directory");
-    }
+    console.log("Creating a clean git history with a single initial commit...");
 
-    // Initialize new git repository
-    execSync("git init", { stdio: "inherit" });
+    // Create a temporary branch to store the current state
+    execSync("git checkout -b temp-branch", { stdio: "inherit" });
+
+    // Create an orphan branch (no history)
+    execSync("git checkout --orphan new-main", { stdio: "inherit" });
+
+    // Add all files
     execSync("git add .", { stdio: "inherit" });
-    execSync('git commit -m "Initial commit from universal-turbo-template"', {
+
+    // Create a single initial commit
+    execSync(`git commit -m "Initial commit for ${projectName}"`, {
       stdio: "inherit",
     });
 
-    console.log("✅ Initialized new git repository");
+    // Get the name of the default branch
+    const defaultBranch = execSync("git symbolic-ref --short HEAD", {
+      encoding: "utf8",
+    }).trim();
+
+    // Force update the default branch to point to our new history
+    execSync(`git branch -D ${defaultBranch}`, { stdio: "inherit" });
+    execSync(`git branch -m ${defaultBranch}`, { stdio: "inherit" });
+
+    console.log("✅ Created a clean git history with a single initial commit");
   } catch (error) {
-    console.error("❌ Error reinitializing git repository:", error.message);
+    console.error("❌ Error creating clean git history:", error.message);
   }
 }
 
@@ -104,17 +113,11 @@ async function main() {
     process.exit(1);
   }
 
-  const shouldReinitGit = await prompt(
-    "Do you want to reinitialize the git repository? (y/n): "
-  );
-
   // Update package.json files
   await updatePackageJson(projectName);
 
-  // Reinitialize git repository if requested
-  if (shouldReinitGit.toLowerCase() === "y") {
-    reinitializeGit();
-  }
+  // Squash all commits into a single initial commit
+  squashCommitsToInitial(projectName);
 
   console.log(`
 🎉 Setup complete! Your project "${projectName}" is ready to go.
