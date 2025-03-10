@@ -9,7 +9,7 @@ Run the following command to use this template:
 
 ```sh
 # Clone the repository
-git clone https://github.com/yourusername/universal-turbo-template.git my-project
+git clone https://github.com/toy-crane/universal-turbo-template.git my-project
 cd my-project
 
 # Install dependencies
