@@ -1,10 +1,14 @@
-import { useAuth } from "@/contexts/auth-provider";
+import { readSession } from "@/features/auth/session";
 import { redirect } from "next/navigation";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth();
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await readSession();
 
-  if (!isAuthenticated) {
+  if (!session) {
     redirect("/login");
   }
 

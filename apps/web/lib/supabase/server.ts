@@ -1,3 +1,5 @@
+"use server";
+
 import { Database } from "database";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
@@ -11,9 +13,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 // For server components
-export const createServerClient = () => {
-  "use server";
-
+export const createServerClient = async () => {
   return createClient<Database>(supabaseUrl, supabaseAnonKey, {
     auth: {
       persistSession: false,
