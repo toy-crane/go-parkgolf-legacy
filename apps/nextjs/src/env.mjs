@@ -18,10 +18,7 @@ export const env = createEnv({
    * Specify your server-side environment variables schema here. This way you can ensure the app isn't
    * built with invalid env vars.
    */
-  server: {
-    INDEX_NOW_KEY: z.string(),
-    ZIGSAW_API_KEY: z.string(),
-  },
+  server: {},
   /**
    * Specify your client-side environment variables schema here.
    * For them to be exposed to the client, prefix them with `NEXT_PUBLIC_`.
@@ -45,8 +42,6 @@ export const env = createEnv({
     NEXT_PUBLIC_NAVER_CLIENT_ID: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
     NEXT_PUBLIC_NAVER_CLIENT_SECRET:
       process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET,
-    INDEX_NOW_KEY: process.env.INDEX_NOW_KEY,
-    ZIGSAW_API_KEY: process.env.ZIGSAW_API_KEY,
   },
   skipValidation:
     !!process.env.CI ||
