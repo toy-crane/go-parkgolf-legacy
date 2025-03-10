@@ -1,0 +1,242 @@
+---
+description: Guidelines for writing Supabase database functions
+globs: **/*.sql
+alwaysApply: false
+---
+---
+description: Guidelines for writing Supabase database functions
+globs: "**/*.sql"
+---
+
+# Writing Supabase Edge Functions
+
+You're an expert in writing TypeScript and Deno JavaScript runtime. Generate **high-quality Supabase Edge Functions** that adhere to the following best practices:
+
+## How to Start Edge Function
+
+### Create Edge Function
+
+- Must use this command to initially create the function.
+```Shell apps/database
+supabase functions new sample
+```
+
+### Create Code following the Guidelines
+
+1. Try to use Web APIs and Deno’s core APIs instead of external dependencies (eg: use fetch instead of Axios, use WebSockets API instead of node-ws)
+2. If you are reusing utility methods between Edge Functions, add them to `apps/database/supabase/functions/_shared` and import using a relative path. Do NOT have cross dependencies between Edge Functions.
+3. Do NOT use bare specifiers when importing dependecnies. If you need to use an external dependency, make sure it's prefixed with either `npm:` or `jsr:`. For example, `@supabase/supabase-js` should be written as `npm:@supabase/supabase-js`.
+4. For external imports, always define a version. For example, `npm:@express` should be written as `npm:express@4.18.2`.
+5. For external dependencies, importing via `npm:` and `jsr:` is preferred. Minimize the use of imports from @`deno.land/x` , `esm.sh` and @`unpkg.com` . If you have a package from one of those CDNs, you can replace the CDN hostname with `npm:` specifier.
+6. You can also use Node built-in APIs. You will need to import them using `node:` specifier. For example, to import Node process: `import process from "node:process". Use Node APIs when you find gaps in Deno APIs.
+7. Do NOT use `import { serve } from "https://deno.land/std@0.168.0/http/server.ts"`. Instead use the built-in `Deno.serve`.
+8. Following environment variables (ie. secrets) are pre-populated in both local and hosted Supabase environments. Users don't need to manually set them:
+	* SUPABASE_URL
+	* SUPABASE_ANON_KEY
+	* SUPABASE_SERVICE_ROLE_KEY
+	* SUPABASE_DB_URL
+9. A single Edge Function can handle multiple routes. It is recommended to use a library like Express or Hono to handle the routes as it's easier for developer to understand and maintain. Each route must be prefixed with `/function-name` so they are routed correctly.
+10. File write operations are ONLY permitted on `/tmp` directory. You can use either Deno or Node File APIs.
+11. Use `EdgeRuntime.waitUntil(promise)` static method to run long-running tasks in the background without blocking response to a request. Do NOT assume it is available in the request / execution context.
+
+### Run Edge Function Locally
+
+```Shell apps/database
+supabase functions serve --env-file .env
+```
+
+### Deploy Edge Function to Remote
+
+```Shell apps/database
+supabase functions deploy
+```
+
+## Example Templates
+
+### Simple Hello World Function
+
+```tsx
+interface reqPayload {
+	name: string;
+}
+
+console.info('server started');
+
+Deno.serve(async (req: Request) => {
+	const { name }: reqPayload = await req.json();
+	const data = {
+		message: `Hello ${name} from foo!`,
+	};
+
+	return new Response(
+		JSON.stringify(data),
+		{ headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' }}
+		);
+});
+
+```
+
+### Example Function Using Node Built-in API
+
+```tsx
+import { randomBytes } from "node:crypto";
+import { createServer } from "node:http";
+import process from "node:process";
+
+const generateRandomString = (length) => {
+    const buffer = randomBytes(length);
+    return buffer.toString('hex');
+};
+
+const randomString = generateRandomString(10);
+console.log(randomString);
+
+const server = createServer((req, res) => {
+    const message = `Hello`;
+    res.end(message);
+});
+
+server.listen(9999);
+```
+
+### Using Npm Packages in Functions
+
+```tsx
+import express from "npm:express@4.18.2";
+
+const app = express();
+
+app.get(/(.*)/, (req, res) => {
+    res.send("Welcome to Supabase");
+});
+
+app.listen(8000);
+
+```
+
+### Generate Embeddings Using Built-in @Supabase.ai API
+
+```tsx
+const model = new Supabase.ai.Session('gte-small');
+
+Deno.serve(async (req: Request) => {
+	const params = new URL(req.url).searchParams;
+	const input = params.get('text');
+	const output = await model.run(input, { mean_pool: true, normalize: true });
+	return new Response(
+		JSON.stringify(
+			output,
+		),
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				'Connection': 'keep-alive',
+			},
+		},
+	);
+});
+
+```
+
+### Simple generateText Function
+
+```tsx
+import { openai } from "npm:@ai-sdk/openai";
+import { generateText } from "npm:ai";
+
+Deno.serve(async (req) => {
+  const { text } = await generateText({
+    model: openai("gpt-4o"),
+    prompt: "Write a vegetarian lasagna recipe for 4 people.",
+  });
+
+  return new Response(
+    JSON.stringify({
+      text,
+    }),
+    { headers: { "Content-Type": "application/json" } },
+  );
+});
+
+```
+
+### StreamText Function with Tool Call
+
+```tsx
+import { openai } from "npm:@ai-sdk/openai";
+import { streamText, tool } from "npm:ai";
+import { z } from "npm:zod";
+
+Deno.serve(async (req: Request) => {
+    const { messages } = await req.json();
+
+    const result = streamText({
+        model: openai("gpt-4o"),
+        messages,
+        tools: {
+            weather: tool({
+                description: "Get the weather in a location (fahrenheit)",
+                parameters: z.object({
+                    location: z.string().describe(
+                        "The location to get the weather for",
+                    ),
+                }),
+                execute: async ({ location }) => {
+                    const temperature = Math.round(
+                        Math.random() * (90 - 32) + 32,
+                    );
+                    return {
+                        location,
+                        temperature,
+                    };
+                },
+            }),
+            convertFahrenheitToCelsius: tool({
+                description: "Convert a temperature in fahrenheit to celsius",
+                parameters: z.object({
+                    temperature: z
+                        .number()
+                        .describe("The temperature in fahrenheit to convert"),
+                }),
+                execute: async ({ temperature }) => {
+                    const celsius = Math.round((temperature - 32) * (5 / 9));
+                    return {
+                        celsius,
+                    };
+                },
+            }),
+        },
+    });
+    return result.toDataStreamResponse();
+});
+
+```
+
+### Structured Output
+
+```tsx
+import { openai } from "npm:@ai-sdk/openai";
+import { generateObject } from "npm:ai";
+import { z } from "npm:zod";
+
+Deno.serve(async (req: Request) => {
+    const result = await generateObject({
+        model: openai("gpt-4o"),
+        schema: z.object({
+            recipe: z.object({
+                name: z.string(),
+                ingredients: z.array(
+                    z.object({
+                        name: z.string(),
+                        amount: z.string(),
+                    }),
+                ),
+                steps: z.array(z.string()),
+            }),
+        }),
+        prompt: "Generate a lasagna recipe.",
+    });
+
+    return new Response(JSON.stringify(result.object.recipe));
+});
+```
