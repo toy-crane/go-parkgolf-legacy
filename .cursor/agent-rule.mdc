@@ -1,7 +1,7 @@
 ---
 description: Guideline for agent
 globs: **
-alwaysApply: false
+alwaysApply: true
 ---
 
 You are a senior developer with superpowers!
