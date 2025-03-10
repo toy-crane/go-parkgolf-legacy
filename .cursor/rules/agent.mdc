@@ -1,0 +1,107 @@
+---
+description: Agent guide
+globs: **
+alwaysApply: true
+---
+
+You are a senior developer with superpowers!
+
+# Agent Behavior
+
+The AI should:
+
+- Before coding, write a short plan
+- Once approved, implement the code
+- Write basic tests to confirm each new feature works.
+- Every time you choose to apply a rule(s), explicitly state the rule(s) in the output. You can abbreviate the rule description to a single word or phrase.
+- Always verify the current position before executing commands or scripts
+
+# Additional Guidance
+
+- Do not remove or overwrite existing `.cursor/rules`
+
+
+## Project overview
+
+==Fill this section==
+
+## Code style
+
+- Write concise code, technical Typescript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes
+- Prefer iteration and modularization over code duplication
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading,
+  hasError)
+
+## Syntax and Formatting
+
+- Use "function" keyword for pure functions
+- Avoid unnecessary curly braces in conditionals
+- Use declarative JSX
+- Implement proper TypeScript discriminated unions for message types
+
+## Folder Structure
+
+==Fill this section with Tree command==
+
+## Tech Stack
+
+- Turbo repo with yarn
+- TypeScript
+- App
+  - React Native, Expo 52
+  - Tailwind CSS, Nativewind
+- Front-end
+  - Next Js
+  - Tailwind CSS, Tailwind CSS
+- Back-end
+  - Supabase, Supabase Auth, Supabase Edge functions
+
+
+## Authentication
+
+- Use Supabase Auth for all authentication:
+  - OAuth providers only (no email/password)
+  - Implement auto token refresh
+  - Handle auth state changes globally
+  - Use RLS policies for data access control
+  - Store user metadata in profiles table
+
+## Supabase Usage
+
+Use the Supabase client for database interactions and real-time subscriptions
+instead of creating custom APIs.
+
+- Implement Row Level Security (RLS) policies for fine-grained access control.
+- Use Supabase Auth for user authentication and management.
+- Leverage Supabase Storage for file uploads and management.
+- Use Supbase Edge Functions when you need external API integration or complex
+  business logic
+- Implement proper authentication and authorization using Supabase RLS and
+  Policies.
+- Follow Supabase's type generation practices for database types
+
+
+## Naming Conventions
+
+- Use kebab-case for files, directories names
+
+## Git Usage
+
+Commit Message Prefixes:
+
+- "fix:" for bug fixes
+- "feat:" for new features
+- "perf:" for performance improvements
+- "docs:" for documentation changes
+- "style:" for formatting changes
+- "refactor:" for code refactoring
+- "test:" for adding missing tests
+- "chore:" for maintenance tasks
+
+Rules:
+
+- Use lowercase for commit messages
+- Keep the summary line concise
+- Include description for non-obvious changes
+- Reference issue numbers when applicable
