@@ -3,9 +3,19 @@
 This is a clean Turborepo template with empty apps and packages directories,
 ready for you to add your own applications and packages.
 
-## Getting Started
+## Using This Template
 
-Run the following command to use this template:
+There are two ways to use this template:
+
+### Option 1: Use as a GitHub Template (Recommended)
+
+1. Click the "Use this template" button at the top of the repository page
+2. Name your new repository
+3. Clone your new repository locally
+4. Run `yarn install` to install dependencies
+5. Run `yarn setup` to customize your project name and setup
+
+### Option 2: Clone and Reinitialize
 
 ```sh
 # Clone the repository
@@ -14,7 +24,16 @@ cd my-project
 
 # Install dependencies
 yarn install
+
+# Run the setup script to customize your project
+yarn setup
 ```
+
+The setup script will:
+
+- Update the project name in all package.json files
+- Reinitialize the git repository (optional)
+- Set up your project with a clean git history
 
 ## Project Structure
 
