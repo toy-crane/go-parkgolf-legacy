@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": ".",
+    },
+    {
+      "path": "apps/database",
+    },
+    {
+      "path": "apps/mobile",
+    },
+    {
+      "path": "apps/web",
+    },
+  ],
+  "settings": {},
+}
