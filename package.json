@@ -1,5 +1,5 @@
 {
-  "name": "universal-turbo-template",
+  "name": "go-parkgolf",
   "private": true,
   "scripts": {
     "build": "turbo run build",
