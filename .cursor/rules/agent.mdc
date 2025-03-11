@@ -22,8 +22,14 @@ The AI should:
 
 
 ## Project overview
-
-==Fill this section==
+GoParkgolf is a mobile and web application designed to enhance the park golf experience for players in Korea.
+- It provides an interactive map interface showing park golf courses across Korea
+- It allows users to view detailed information about golf courses including location, hole count, and operating hours
+- It offers a score card system for tracking and recording game scores with multiple players
+- It includes a review system for golf courses, allowing users to share their experiences
+- It provides a trending section to see popular courses and recent activities
+- It supports user authentication for personalized experiences and saving game history
+- It has both web and mobile app versions with responsive design for different devices
 
 ## Code style
 
@@ -42,7 +48,33 @@ The AI should:
 
 ## Folder Structure
 
-==Fill this section with Tree command==
+```
+└── apps/
+    ├── app/                    # Mobile Application
+    │   ├── app/               # App router screens
+    │   ├── assets/
+    │   │   └── images/       # Image assets
+    │   ├── components/
+    │   │   └── ui/          # Shared UI components
+    │   ├── contexts/        # React contexts
+    │   └── lib/            # Utilities
+    │       └── icons/     # Icon assets
+    │
+    ├── database/          # Database Layer
+    │   └── supabase/
+    │       └── functions/ # Edge functions
+    │
+    └── web/              # Web Application
+        ├── app/
+        │   └── (authenticated)/ # Protected routes
+        ├── components/
+        │   └── ui/           # Shared UI components
+        ├── contexts/        # React contexts
+        ├── features/
+        │   └── auth/      # Authentication features
+        └── lib/
+            └── supabase/ # Supabase client config
+```
 
 ## Tech Stack
 
