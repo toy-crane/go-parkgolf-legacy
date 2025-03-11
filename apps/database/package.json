@@ -12,6 +12,7 @@
     "stop": "supabase stop",
     "status": "supabase status",
     "reset": "supabase db reset",
+    "migrate": "supabase migration up --local --include-all",
     "migration:new": "supabase migration new",
     "migration:list": "supabase migration list",
     "functions:serve": "supabase functions serve",
