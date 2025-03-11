@@ -60,6 +60,29 @@ async function updatePackageJson(projectName) {
   }
 }
 
+// Function to update mobile app configuration
+async function updateMobileAppConfig(projectName) {
+  const appConfigPath = path.join(
+    process.cwd(),
+    "apps",
+    "app",
+    "app.config.ts"
+  );
+
+  if (fs.existsSync(appConfigPath)) {
+    let appConfig = fs.readFileSync(appConfigPath, "utf8");
+
+    // Update the name and slug in app.config.ts
+    appConfig = appConfig
+      .replace(/name: ".*?"/, `name: "${projectName}"`)
+      .replace(/slug: ".*?"/, `slug: "${projectName}"`)
+      .replace(/scheme: ".*?"/, `scheme: "${projectName}"`);
+
+    fs.writeFileSync(appConfigPath, appConfig);
+    console.log("✅ Updated mobile app configuration");
+  }
+}
+
 // Main function
 async function main() {
   console.log("🚀 Welcome to the Universal Turborepo Template setup!");
@@ -81,6 +104,9 @@ async function main() {
 
   // Update package.json files
   await updatePackageJson(projectName);
+
+  // Update mobile app configuration
+  await updateMobileAppConfig(projectName);
 
   console.log(`
 🎉 Setup complete! Your project "${projectName}" is ready to go.
