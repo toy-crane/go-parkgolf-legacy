@@ -11,7 +11,7 @@ export default async function Home() {
   const markers: Marker[] = courses.map((course) => ({
     position: { lat: course.lat, lng: course.lng },
     text: course.name,
-    to: `/golf-courses/${course.id}`,
+    to: `/golf-courses/${course.slug}`,
     selected: false,
   }));
 

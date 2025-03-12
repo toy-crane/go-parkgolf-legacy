@@ -8,7 +8,7 @@ interface Course {
 
 interface Props {
   params: {
-    id: string;
+    slug: string;
   };
 }
 
@@ -18,7 +18,7 @@ export default async function CourseDetailPage({ params }: Props) {
   const { data: golfCourse, error } = await supabase
     .from("golf_courses")
     .select("id, name")
-    .eq("id", params.id)
+    .eq("slug", decodeURIComponent(params.slug))
     .single();
 
   if (error || !golfCourse) {
