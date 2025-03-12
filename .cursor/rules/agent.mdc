@@ -112,7 +112,10 @@ instead of creating custom APIs.
   business logic
 - Implement proper authentication and authorization using Supabase RLS and
   Policies.
-- Follow Supabase's type generation practices for database types
+- Use predefined Supabase clients each app
+  - client, server for NextJS (apps/web/lib/supabase)
+- Use Database type from database app 
+  - You can import like `import {Database} from 'database';`
 
 
 ## Naming Conventions
