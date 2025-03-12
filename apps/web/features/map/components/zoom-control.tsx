@@ -2,18 +2,25 @@
 
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { parseAsInteger, useQueryState } from "nuqs";
+import { DEFAULT_POSITION } from "../config";
 
-interface ZoomControlProps {
-  currentLevel: number;
-}
+const ZoomControl = () => {
+  const [level, setLevel] = useQueryState(
+    "level",
+    parseAsInteger.withDefault(DEFAULT_POSITION.level).withOptions({
+      shallow: false,
+    })
+  );
 
-const ZoomControl = ({ currentLevel }: ZoomControlProps) => {
   const zoomIn = () => {
-    if (currentLevel <= 1) return;
+    if (level <= 1) return;
+    setLevel(level - 1);
   };
 
   const zoomOut = () => {
-    if (currentLevel >= 14) return;
+    if (level >= 14) return;
+    setLevel(level + 1);
   };
 
   return (
@@ -23,7 +30,7 @@ const ZoomControl = ({ currentLevel }: ZoomControlProps) => {
         variant="secondary"
         size="icon"
         className="rounded-b-none border border-b"
-        disabled={currentLevel <= 1}
+        disabled={level <= 1}
       >
         <PlusIcon />
       </Button>
@@ -32,7 +39,7 @@ const ZoomControl = ({ currentLevel }: ZoomControlProps) => {
         variant="secondary"
         size="icon"
         className="rounded-t-none border"
-        disabled={currentLevel >= 14}
+        disabled={level >= 14}
       >
         <MinusIcon />
       </Button>

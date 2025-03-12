@@ -36,7 +36,7 @@ export default async function Home({ searchParams }: PageProps) {
     <div className="w-full h-screen">
       <div className="z-10 absolute right-4 top-4">
         <div className="flex flex-col gap-4">
-          <ZoomControl currentLevel={level} />
+          <ZoomControl />
         </div>
       </div>
       <Map
