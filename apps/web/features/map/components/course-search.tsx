@@ -27,7 +27,6 @@ interface CourseSearchProps {
 
 export function CourseSearch({ courses }: CourseSearchProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
   const router = useRouter();
 
   const options = courses.map((course) => ({
