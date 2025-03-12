@@ -4,6 +4,7 @@ import { CustomOverlayMap } from "react-kakao-maps-sdk";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Marker as MarkerType } from "@/types";
+import { Icons } from "@/components/icons";
 
 const Marker = ({
   position,
@@ -23,7 +24,27 @@ const Marker = ({
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <Button onClick={onClick}>{text}</Button>
+          <button
+            className="rounded-full p-0 hover:bg-transparent hover:scale-110"
+            onClick={onClick}
+          >
+            <Icons.pin
+              className={cn(
+                "h-10 w-10",
+                selected ? "fill-[#22DC48]" : "fill-[#16a34a]"
+              )}
+            />
+            <span
+              className={cn(
+                "block select-none p-1 bg-muted",
+                "absolute left-[50%] top-[50%] mt-5 translate-x-[-50%]",
+                "group-hover:font-bold",
+                selected && "block font-bold text-lg"
+              )}
+            >
+              {text}
+            </span>
+          </button>
         </div>
       </CustomOverlayMap>
     </>
