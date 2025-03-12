@@ -49,7 +49,7 @@ export function CourseSearchDialog({
               key={href}
               value={title}
               onSelect={() => {
-                runCommand(() => router.push(href));
+                runCommand(() => router.replace(href));
               }}
             >
               {title}
