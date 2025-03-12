@@ -1,13 +1,6 @@
 import { notFound } from "next/navigation";
 import { getCourse } from "@/features/course/actions";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 interface Props {
   params: {
@@ -26,38 +19,24 @@ export default async function CourseDetailPage({ params }: Props) {
   const region1DepthName = addressParts[0];
   const region2DepthName = addressParts[1];
 
+  const breadcrumbTrail = [
+    { href: "/gc", label: "전국" },
+    { href: `/gc/${region1DepthName}`, label: region1DepthName },
+    ...(region2DepthName
+      ? [
+          {
+            href: `/gc/${region1DepthName}/${region2DepthName}`,
+            label: region2DepthName,
+          },
+        ]
+      : []),
+    { label: golfCourse.name },
+  ];
+
   return (
     <>
       <main className="container mx-auto px-4 py-4">
-        <Breadcrumb className="mb-1.5">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/gc">전국</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href={`/gc/${region1DepthName}`}>
-                {region1DepthName}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            {region2DepthName && (
-              <>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink
-                    href={`/gc/${region1DepthName}/${region2DepthName}`}
-                  >
-                    {region2DepthName}
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-              </>
-            )}
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{golfCourse.name}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <Breadcrumbs trail={breadcrumbTrail} className="mb-1.5" />
         <h1 className="text-3xl font-bold">{golfCourse.name}</h1>
       </main>
     </>
