@@ -17,9 +17,11 @@ export default async function Home() {
 
   return (
     <div className="w-full h-screen">
+      <div className="z-10 absolute left-4 top-4">
+        <CourseSearch courses={courses} />
+      </div>
       <div className="z-10 absolute right-4 top-4">
         <div className="flex flex-col gap-2">
-          <CourseSearch courses={courses} />
           <CurrentPositionButton />
           <ZoomControl />
         </div>

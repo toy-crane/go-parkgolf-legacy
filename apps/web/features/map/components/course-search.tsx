@@ -6,10 +6,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
+  CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 import {
   Popover,
@@ -28,48 +30,51 @@ export function CourseSearch({ courses }: CourseSearchProps) {
   const [value, setValue] = React.useState("");
   const router = useRouter();
 
+  const options = courses.map((course) => ({
+    title: `${course.name} (${
+      course.lot_number_address_name.split(" ").splice(0, 2).join(" ") ?? ""
+    })`,
+    href: `/golf-courses/${course.slug}`,
+  }));
+
+  const runCommand = React.useCallback((command: () => unknown) => {
+    setOpen(false);
+    command();
+  }, []);
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[300px] justify-between bg-white"
-        >
-          {value
-            ? courses.find((course) => course.id === value)?.name
-            : "골프장 검색..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[300px] p-0">
-        <Command>
-          <CommandInput placeholder="파크골프장 이름 또는 주소로 검색" />
-          <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+    <>
+      <Button
+        variant="outline"
+        size="lg"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        <span className="hidden lg:inline-flex">
+          파크골프장 이름 또는 주소로 검색
+        </span>
+        <span className="inline-flex lg:hidden">파크골프장 또는 주소 입력</span>
+      </Button>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="주소 또는 이름을 입력해주세요." />
+        <CommandList>
+          <CommandEmpty>해당하는 검색 결과가 없습니다.</CommandEmpty>
           <CommandGroup>
-            {courses.map((course) => (
+            {options.map(({ href, title }) => (
               <CommandItem
-                key={course.id}
-                value={course.id}
-                onSelect={(currentValue) => {
-                  setValue(currentValue);
-                  setOpen(false);
-                  router.push(`/courses/${course.id}`);
+                key={href}
+                value={title}
+                onSelect={() => {
+                  runCommand(() => router.push(href));
                 }}
               >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === course.id ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                {course.name}
+                {title}
               </CommandItem>
             ))}
           </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
+        </CommandList>
+      </CommandDialog>
+    </>
   );
 }
