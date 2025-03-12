@@ -29,6 +29,7 @@ const Marker = ({
             <Icons.pin
               className={cn(
                 "size-8",
+                "hover:fill-[#22DC48] hover:scale-110",
                 selected ? "fill-[#22DC48]" : "fill-[#16a34a]"
               )}
             />
