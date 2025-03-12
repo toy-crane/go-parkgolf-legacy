@@ -4,7 +4,7 @@ import * as React from "react";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GolfCourse } from "@/features/course/types";
-import { CourseSearchDialog } from "@/features/map/components/course-search-dialog";
+import { CourseSearchDialog } from "@/features/course/components/course-search-dialog";
 
 interface CourseSearchProps {
   courses: GolfCourse[];
