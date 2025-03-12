@@ -2,27 +2,10 @@
 
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { parseAsInteger, useQueryState } from "nuqs";
-import { DEFAULT_POSITION } from "../config";
+import { useMapHandler } from "../hooks";
 
 const ZoomControl = () => {
-  const [level, setLevel] = useQueryState(
-    "level",
-    parseAsInteger.withDefault(DEFAULT_POSITION.level).withOptions({
-      shallow: false,
-    })
-  );
-
-  const zoomIn = () => {
-    if (level <= 1) return;
-    setLevel(level - 1);
-  };
-
-  const zoomOut = () => {
-    if (level >= 14) return;
-    setLevel(level + 1);
-  };
-
+  const { zoomIn, zoomOut, level } = useMapHandler();
   return (
     <div className="flex flex-col">
       <Button
