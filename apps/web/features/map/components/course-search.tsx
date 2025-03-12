@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,10 +47,12 @@ export function CourseSearch({ courses }: CourseSearchProps) {
       <Button
         variant="outline"
         size="lg"
+        className="w-full md:w-[400px] justify-start text-muted-foreground"
         onClick={() => {
           setOpen(true);
         }}
       >
+        <Search className="h-4 w-4" />
         <span className="hidden lg:inline-flex">
           파크골프장 이름 또는 주소로 검색
         </span>
