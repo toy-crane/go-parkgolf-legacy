@@ -38,6 +38,7 @@ GoParkgolf is a mobile and web application designed to enhance the park golf exp
 - Prefer iteration and modularization over code duplication
 - Use descriptive variable names with auxiliary verbs (e.g., isLoading,
   hasError)
+- Prefer using absolute imports with an alias.
 
 ## Syntax and Formatting
 
