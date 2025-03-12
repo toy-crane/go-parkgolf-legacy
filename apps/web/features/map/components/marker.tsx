@@ -1,7 +1,5 @@
-"use client";
 import { useState } from "react";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Marker as MarkerType } from "@/types";
 import { Icons } from "@/components/icons";
