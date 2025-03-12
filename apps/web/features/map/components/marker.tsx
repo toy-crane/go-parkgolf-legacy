@@ -23,12 +23,12 @@ const Marker = ({
           onMouseLeave={() => setIsHovered(false)}
         >
           <button
-            className="rounded-full p-0 hover:bg-transparent hover:scale-110"
+            className="rounded-full p-0 hover:bg-transparent hover:scale-105"
             onClick={onClick}
           >
             <Icons.pin
               className={cn(
-                "h-10 w-10",
+                "size-8",
                 selected ? "fill-[#22DC48]" : "fill-[#16a34a]"
               )}
             />
@@ -36,8 +36,8 @@ const Marker = ({
               className={cn(
                 "block select-none p-1 bg-muted",
                 "absolute left-[50%] top-[50%] mt-5 translate-x-[-50%]",
-                "group-hover:font-bold",
-                selected && "block font-bold text-lg"
+                "group-hover:font-bold text-sm",
+                selected && "block font-bold text-base"
               )}
             >
               {text}
