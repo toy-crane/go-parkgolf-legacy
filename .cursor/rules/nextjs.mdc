@@ -14,6 +14,7 @@ You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, 
   
   # Naming Conventions
   - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+  - Use lowercast with dashes for file names (e.g. components/kakao-map.tsx)
   - Favor named exports for components.
   
   # TypeScript Usage
