@@ -1,48 +1,80 @@
 ---
+description: 
+globs: apps/web/**
+alwaysApply: false
+---
+---
 description: guide for nextjs
 globs: apps/web/**
 alwaysApply: false
 ---
-You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind
+
+# Tech Stack
+- NextJS
+- Tailwind CSS, Shadcn
+- Supabase, Supabase Auth, Supabase Edge functions
+- Nuqs (query params management)
+- TypeScript
+
+# Folder Structure
+```
+├── app                                 # Next.js App Router directory - Main application routes
+│   ├── (authenticated)                 # Route group for protected pages (requires auth)
+│   │   └── settings                   # User settings pages
+│   └── golf-courses                   # Public golf course pages
+│       └── [id]                       # Dynamic route for individual golf course pages
+├── components                         # Shared React components
+│   └── ui                            # Reusable UI components (buttons, inputs, etc.)
+├── contexts                          # React Context providers for state management
+├── features                          # Feature-based code organization
+│   ├── auth                          # Authentication related components and logic
+│   ├── course                        # Golf course feature components and logic
+│   └── map                           # Map feature related code
+│       └── components                # Map-specific UI components
+└── lib                               # Shared utilities and configurations
+    └── supabase                      # Supabase client configuration and helpers
+```
   
-  # Code Style and Structure
-  - Write concise, technical TypeScript code with accurate examples.
-  - Use functional and declarative programming patterns; avoid classes.
-  - Prefer iteration and modularization over code duplication.
-  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-  - Structure files: exported component, subcomponents, helpers, static content, types.
+# Code Style and Structure
+ - Write concise, technical TypeScript code with accurate examples.
+ - Use functional and declarative programming patterns; avoid classes.
+ - Prefer iteration and modularization over code duplication.
+ - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+ - Structure files: exported component, subcomponents, helpers, static content, types.
   
-  # Naming Conventions
-  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
-  - Use lowercast with dashes for file names (e.g. components/kakao-map.tsx)
-  - Favor named exports for components.
+# Naming Conventions
+ - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+ - Use lowercast with dashes for file names (e.g. components/kakao-map.tsx)
+ - Favor named exports for components.
   
-  # TypeScript Usage
-  - Use TypeScript for all code; prefer interfaces over types.
-  - Avoid enums; use maps instead.
-  - Use functional components with TypeScript interfaces.
+# TypeScript Usage
+ - Use TypeScript for all code; prefer interfaces over types.
+ - Avoid enums; use maps instead.
+ - Use functional components with TypeScript interfaces.
+
+# Syntax and Formatting
+ - Use the "function" keyword for pure functions.
+ - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+ - Use declarative JSX.
   
-  # Syntax and Formatting
-  - Use the "function" keyword for pure functions.
-  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-  - Use declarative JSX.
+# UI and Styling
+ - Use Shadcn UI, Radix, and Tailwind for components and styling.
+ - Implement responsive design with Tailwind CSS; use a mobile-first approach.
   
-  # UI and Styling
-  - Use Shadcn UI, Radix, and Tailwind for components and styling.
-  - Implement responsive design with Tailwind CSS; use a mobile-first approach.
+# Performance Optimization
+ - Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+ - Wrap client components in Suspense with fallback.
+ - Use dynamic loading for non-critical components.
+ - Optimize images: use WebP format, include size data, implement lazy loading.
   
-  # Performance Optimization
-  - Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
-  - Wrap client components in Suspense with fallback.
-  - Use dynamic loading for non-critical components.
-  - Optimize images: use WebP format, include size data, implement lazy loading.
+# Key Conventions
+ - Use 'nuqs' for URL search parameter state management.
+ - Optimize Web Vitals (LCP, CLS, FID).
+ - Limit 'use client':
+ - Favor server components and Next.js SSR.
+ - Use only for Web API access in small components.
+ - Avoid for data fetching or state management.
   
-  # Key Conventions
-  - Use 'nuqs' for URL search parameter state management.
-  - Optimize Web Vitals (LCP, CLS, FID).
-  - Limit 'use client':
-    - Favor server components and Next.js SSR.
-    - Use only for Web API access in small components.
-    - Avoid for data fetching or state management.
-  
-  Follow Next.js docs for Data Fetching, Rendering, and Routing.
+Follow Next.js docs for Data Fetching, Rendering, and Routing.
