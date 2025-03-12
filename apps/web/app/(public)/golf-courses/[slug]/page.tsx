@@ -36,7 +36,7 @@ export default async function CourseDetailPage({ params }: Props) {
   return (
     <>
       <main className="container mx-auto px-4 py-4">
-        <Breadcrumbs trail={breadcrumbTrail} className="mb-1.5" />
+        <Breadcrumbs trail={breadcrumbTrail} className="mb-2" />
         <h1 className="text-3xl font-bold">{golfCourse.name}</h1>
       </main>
     </>

@@ -28,7 +28,9 @@ export function Breadcrumbs({ trail, className }: BreadcrumbsProps) {
               {item.href ? (
                 <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
               ) : (
-                <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                <BreadcrumbPage className="font-bold underline underline-offset-4">
+                  {item.label}
+                </BreadcrumbPage>
               )}
             </BreadcrumbItem>
             {index < trail.length - 1 && <BreadcrumbSeparator />}
