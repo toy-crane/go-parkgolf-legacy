@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <NuqsAdapter>
-        <html lang="en">
+        <html lang="ko">
           <head>
             <script
               type="text/javascript"
