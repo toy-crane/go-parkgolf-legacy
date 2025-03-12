@@ -23,9 +23,9 @@ export function Map({ markers }: { markers: MarkerType[] }) {
             // calculator 각 사이 값 마다 적용될 스타일을 지정한다
             width: "40px",
             height: "40px",
-            background: "#1bc8df",
+            background: "rgba(27, 200, 223, 0.9)", // #1bc8df with 0.8 opacity
             borderRadius: "20px",
-            color: "#000",
+            color: "#fff",
             textAlign: "center",
             fontWeight: "bold",
             lineHeight: "41px",
@@ -33,9 +33,9 @@ export function Map({ markers }: { markers: MarkerType[] }) {
           {
             width: "50px",
             height: "50px",
-            background: "#e6789c",
+            background: "rgba(230, 120, 156, 0.9)", // #e6789c with 0.8 opacity
             borderRadius: "25px",
-            color: "#000",
+            color: "#fff",
             textAlign: "center",
             fontWeight: "bold",
             lineHeight: "51px",
