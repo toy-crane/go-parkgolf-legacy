@@ -19,7 +19,7 @@ export default async function Home() {
     <div className="w-full h-screen">
       {/* Mobile layout - controls below search */}
       <div className="z-10 absolute left-0 right-0 top-0 px-4 pt-4 flex flex-col gap-4 md:hidden">
-        <div className="w-full">
+        <div className="w-full bg-white/80 rounded-lg p-1">
           <CourseSearch courses={courses} />
         </div>
         <div className="flex justify-end">
@@ -33,7 +33,9 @@ export default async function Home() {
       {/* Desktop layout - search left, controls right */}
       <div className="hidden md:block">
         <div className="z-10 absolute left-4 top-4">
-          <CourseSearch courses={courses} />
+          <div className="bg-white/80 rounded-lg p-1">
+            <CourseSearch courses={courses} />
+          </div>
         </div>
         <div className="z-10 absolute right-4 top-4">
           <div className="flex flex-col gap-2">
