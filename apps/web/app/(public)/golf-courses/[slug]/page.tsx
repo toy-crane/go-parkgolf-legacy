@@ -28,8 +28,8 @@ export default async function CourseDetailPage({ params }: Props) {
 
   return (
     <>
-      <main className="container mx-auto px-4 py-8">
-        <Breadcrumb className="mb-1.5 mt-2">
+      <main className="container mx-auto px-4 py-4">
+        <Breadcrumb className="mb-1.5">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/gc">전국</BreadcrumbLink>
