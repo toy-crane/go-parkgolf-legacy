@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { getCourse } from "@/features/course/actions";
 
 interface Course {
   id: string;
@@ -13,15 +13,8 @@ interface Props {
 }
 
 export default async function CourseDetailPage({ params }: Props) {
-  const supabase = await createClient();
-
-  const { data: golfCourse, error } = await supabase
-    .from("golf_courses")
-    .select("id, name")
-    .eq("slug", decodeURIComponent(params.slug))
-    .single();
-
-  if (error || !golfCourse) {
+  const golfCourse = await getCourse(params.slug);
+  if (!golfCourse) {
     notFound();
   }
 
