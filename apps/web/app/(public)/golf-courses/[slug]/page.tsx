@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
-import { getCourse } from "@/features/course/actions";
+import { getCourse, getCourses } from "@/features/course/actions";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import NearCourseMap from "@/features/course/components/near-course-map";
 
 interface Props {
   params: {
@@ -10,6 +11,8 @@ interface Props {
 
 export default async function CourseDetailPage({ params }: Props) {
   const golfCourse = await getCourse(params.slug);
+  const golfCourses = await getCourses();
+
   if (!golfCourse) {
     notFound();
   }
@@ -37,6 +40,7 @@ export default async function CourseDetailPage({ params }: Props) {
     <>
       <main className="container mx-auto px-4 py-4">
         <Breadcrumbs trail={breadcrumbTrail} className="mb-2" />
+        <NearCourseMap golfCourses={golfCourses} currentCourse={golfCourse} />
         <h1 className="text-3xl font-bold">{golfCourse.name}</h1>
       </main>
     </>
