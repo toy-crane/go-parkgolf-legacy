@@ -21,10 +21,18 @@ export function useMapHandler() {
     })
   );
 
-  const handleMove = (map: kakao.maps.Map) => {
-    setLng(map.getCenter().getLng());
-    setLat(map.getCenter().getLat());
-    setLevel(map.getLevel());
+  const handleMove = ({
+    lng,
+    lat,
+    level,
+  }: {
+    lng: number;
+    lat: number;
+    level: number;
+  }) => {
+    setLng(lng);
+    setLat(lat);
+    setLevel(level);
   };
 
   const zoomIn = () => {

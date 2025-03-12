@@ -16,8 +16,20 @@ export function Map({ markers }: { markers: MarkerType[] }) {
       center={{ lat, lng }}
       style={{ width: "100%", height: "100%" }}
       level={level}
-      onDragEnd={(map) => handleMove(map)}
-      onZoomChanged={(map) => handleMove(map)}
+      onDragEnd={(map) =>
+        handleMove({
+          lng: map.getCenter().getLng(),
+          lat: map.getCenter().getLat(),
+          level: map.getLevel(),
+        })
+      }
+      onZoomChanged={(map) =>
+        handleMove({
+          lng: map.getCenter().getLng(),
+          lat: map.getCenter().getLat(),
+          level: map.getLevel(),
+        })
+      }
     >
       <MarkerClusterer
         averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
