@@ -4,3 +4,8 @@ export type Marker = {
   to: string;
   selected?: boolean;
 };
+
+export type Position = {
+  level: number;
+  center: { lat: number; lng: number };
+};
