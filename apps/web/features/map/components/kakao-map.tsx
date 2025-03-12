@@ -3,22 +3,21 @@
 import React from "react";
 import { Map as KakaoMap, MarkerClusterer } from "react-kakao-maps-sdk";
 import Marker from "./marker";
-import { Marker as MarkerType, Position } from "@/types";
+import { Marker as MarkerType } from "@/types";
 import { useRouter } from "next/navigation";
+import { useMapHandler } from "@/features/map/hooks";
 
-export function Map({
-  markers,
-  position,
-}: {
-  markers: MarkerType[];
-  position: Position;
-}) {
+export function Map({ markers }: { markers: MarkerType[] }) {
   const router = useRouter();
+  const { handleMove, lat, lng, level } = useMapHandler();
+
   return (
     <KakaoMap
-      center={{ lat: position.center.lat, lng: position.center.lng }}
+      center={{ lat, lng }}
       style={{ width: "100%", height: "100%" }}
-      level={position.level}
+      level={level}
+      onDragEnd={(map) => handleMove(map)}
+      onZoomChanged={(map) => handleMove(map)}
     >
       <MarkerClusterer
         averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
