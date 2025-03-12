@@ -4,6 +4,8 @@ import { getCourses } from "@/features/course/actions";
 import { Marker } from "@/types";
 import ZoomControl from "@/features/map/components/zoom-control";
 import CurrentPositionButton from "@/features/map/components/current-position";
+import { CourseSearch } from "@/features/map/components/course-search";
+
 export default async function Home() {
   const courses = await getCourses();
   const markers: Marker[] = courses.map((course) => ({
@@ -17,6 +19,7 @@ export default async function Home() {
     <div className="w-full h-screen">
       <div className="z-10 absolute right-4 top-4">
         <div className="flex flex-col gap-2">
+          <CourseSearch courses={courses} />
           <CurrentPositionButton />
           <ZoomControl />
         </div>
