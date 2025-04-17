@@ -19,6 +19,7 @@ const DownloadBanner = dynamic(
 const Layout = (props: { children: React.ReactNode }) => {
   const headersList = headers();
   const userAgent = headersList.get("user-agent")!;
+  const appVersion = headersList.get("App-Version") ?? undefined;
   return (
     <>
       <DownloadBanner isApp={isApp(userAgent)} />
@@ -36,7 +37,7 @@ const Layout = (props: { children: React.ReactNode }) => {
           <DynamicBanner />
         </div>
       </main>
-      <BottomNav />
+      {!appVersion && <BottomNav />}
     </>
   );
 };

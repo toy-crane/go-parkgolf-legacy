@@ -100,12 +100,16 @@ export default async function Layout(props: { children: React.ReactNode }) {
 
   // 모든 최초 webview request에만 custom header가 있기에, 요청이 한 번 왔을 때 해당 브라우저를 webview로 인식
   const isMobileApp = headers().get("X-Is-Mobile-App") === "true";
+  const appVersion = headers().get("App-Version") ?? undefined;
+
+  console.log("appVersion", appVersion);
 
   return (
     <html lang="ko">
       <UserAgentStoreInitializer
         isMobileApp={isMobileApp}
         isWebview={isWebView}
+        appVersion={appVersion}
       />
       <UserStoreInitializer user={session?.user} />
       <body className={cn("bg-backgroundfont-sans antialiased")}>

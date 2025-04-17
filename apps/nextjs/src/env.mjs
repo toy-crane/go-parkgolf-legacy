@@ -10,7 +10,6 @@ export const env = createEnv({
     PORT: z.coerce.number().default(3000),
     NEXT_PUBLIC_SUPABASE_URL: z.string(),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
-    NEXT_PUBLIC_KAKAO_API_KEY: z.string(),
     NEXT_PUBLIC_NAVER_CLIENT_ID: z.string(),
     NEXT_PUBLIC_NAVER_CLIENT_SECRET: z.string(),
   },
@@ -25,7 +24,6 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_KAKAO_CLIENT_ID: z.string(),
-    NEXT_PUBLIC_KAKAO_API_KEY: z.string(),
   },
   /**
    * Destructure all variables from `process.env` to make sure they aren't tree-shaken away.
@@ -36,7 +34,6 @@ export const env = createEnv({
     NEXT_PUBLIC_KAKAO_CLIENT_ID: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    NEXT_PUBLIC_KAKAO_API_KEY: process.env.NEXT_PUBLIC_KAKAO_API_KEY,
     NEXT_PUBLIC_NAVER_CLIENT_ID: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
     NEXT_PUBLIC_NAVER_CLIENT_SECRET:
       process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET,

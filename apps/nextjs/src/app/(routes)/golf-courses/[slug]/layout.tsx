@@ -70,6 +70,7 @@ const Layout = (props: {
   // TODO: isWebview와 isMobileApp 통합이 필요함
   const headersList = headers();
   const userAgent = headersList.get("user-agent")!;
+  const appVersion = headersList.get("App-Version") ?? undefined;
 
   return (
     <>
@@ -79,7 +80,7 @@ const Layout = (props: {
       <DetailsNav className="content-grid mb-6" />
       <section className="content-grid pb-36">{props.children}</section>
       <ScoreCardCTA slug={props.params.slug} />
-      <BottomNav />
+      {!appVersion && <BottomNav />}
     </>
   );
 };

@@ -10,13 +10,14 @@ const Layout = async (props: { children: React.ReactNode }) => {
     return redirect(
       `/login?${new URLSearchParams({ next: pathname }).toString()}`,
     );
+  const appVersion = headers().get("App-Version") ?? undefined;
 
   return (
     <>
       <main className="content-grid pb-[var(--bottom-nav-height)]">
         {props.children}
       </main>
-      <BottomNav />
+      {!appVersion && <BottomNav />}
     </>
   );
 };
